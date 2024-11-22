@@ -1,6 +1,7 @@
 package com.mymt;
 
 import com.mymt.bean.ItemsBean;
+import com.mymt.util.SaveUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +29,7 @@ import static java.awt.event.KeyEvent.*;
 public class Main {
 
     public static void main(String[] args) {
+
         gamePanel = new MTGame();
         gamePanel.setPreferredSize(new Dimension(GAME_PIX_72 * 18, GAME_PIX_72 * 13));
 
@@ -86,9 +88,10 @@ public class Main {
                             }
                             break;
                         case VK_F1:      // 键盘 F1，保存
-
+                            save((MTGame) gamePanel);
                             break;
                         case VK_F2:      // 键盘 F2，加载
+                            gamePanel = load();
                             break;
                     }
                 else if (e.getKeyCode() == e.VK_L)//bug
@@ -110,5 +113,13 @@ public class Main {
         gameFrame.setLocationRelativeTo(null);
         gameFrame.setVisible(true);
         gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    public static void save(MTGame mtGame) {
+        SaveUtil.saveGame(mtGame);
+    }
+
+    public static MTGame load() {
+        return SaveUtil.loadGame();
     }
 }

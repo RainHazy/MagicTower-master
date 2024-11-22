@@ -56,7 +56,7 @@ public class MTGame extends JPanel {
     // 构造器
     public MTGame() {
         setLayout(null);
-        gameFrame = new JFrame("魔塔 v1.12 Java仿制版     【 GitHub地址：https://github.com/gdut-yy/MagicTower 】");
+        gameFrame = new JFrame("魔塔 v1.0");
 
         // 初始化 时间面板
         timeLabel = new JLabel();
@@ -418,5 +418,9 @@ public class MTGame extends JPanel {
                 playerBean_1.move(5, 10);
                 break;
         }
+    }
+
+    public MTGame getMTGame() {
+        return this;
     }
 }

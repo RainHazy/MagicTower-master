@@ -398,5 +398,6 @@ public class test {
         // 从配置文件读取数组
         short[][][] newArray = stringToShort3(load("LvMap"));
         System.out.println(Arrays.deepToString(newArray));
+        System.out.println(System.getProperty("user.dir"));
     }
 }

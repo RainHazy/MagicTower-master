@@ -1,16 +1,21 @@
 package com.mymt.util;
 
+import com.mymt.MTGame;
+
 import java.io.*;
 import java.util.Properties;
 
 /**
  * @author ：zzf
- * @description：配置文件工具类
+ * @description：基础数据和存档工具类
  * @date ：2024/11/22 10:52
  */
 public class SaveUtil {
 
-    static String filePath = "src/main/resources/config";
+    static String basePath = "data/base";
+    static String savePath = "data/save/save1";
+    static Properties properties = new Properties();
+    static File baseFile = new File(basePath+"/file1.properties");
 
     //将三维数组转成字符串
     public static String short3ToString(short[][][] array) {
@@ -70,7 +75,7 @@ public class SaveUtil {
         properties.setProperty(key, data);
 
         // 保存到文件 src/main/resources/config/file1.properties
-        File file = new File(filePath+"/file1.properties");
+        File file = new File(baseFile+"/baseData.properties");
         if (!file.exists()) {
             file.getParentFile().mkdirs(); // 创建目录
             file.createNewFile(); // 创建文件
@@ -83,10 +88,8 @@ public class SaveUtil {
 
     // 从配置文件中读取
     public static String load(String key)  {
-        Properties properties = new Properties();
-        File file = new File(filePath+"/file1.properties");
 
-        try (FileInputStream fis = new FileInputStream(file)) {
+        try (FileInputStream fis = new FileInputStream(baseFile)) {
             properties.load(fis);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -94,23 +97,27 @@ public class SaveUtil {
             throw new RuntimeException(e);
         }
 
-        String data = properties.getProperty("LvMap");
+        String data = properties.getProperty(key);
         return data;
     }
 
-    // 保存对象到文件
-    public static void saveObject(Object obj) throws IOException {
-        try (FileOutputStream fileOut = new FileOutputStream(filePath);
+    // 保存游戏状态到文件
+    public static void saveGame(MTGame mtGame) {
+        try (FileOutputStream fileOut = new FileOutputStream(savePath);
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-            out.writeObject(obj);
+            out.writeObject(mtGame);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    // 从文件读取对象
-    public static Object loadObject() throws IOException, ClassNotFoundException {
-        try (FileInputStream fileIn = new FileInputStream(filePath);
+    // 从文件加载游戏状态
+    public static MTGame loadGame()  {
+        try (FileInputStream fileIn = new FileInputStream(savePath);
              ObjectInputStream in = new ObjectInputStream(fileIn)) {
-            return in.readObject();
+            return (MTGame) in.readObject();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
