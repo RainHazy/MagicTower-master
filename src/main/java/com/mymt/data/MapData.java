@@ -1,6 +1,8 @@
 package com.mymt.data;
 
 
+import java.io.Serializable;
+
 import static com.mymt.util.SaveUtil.*;
 /**
  * MapData 类
@@ -14,7 +16,7 @@ import static com.mymt.util.SaveUtil.*;
  * @author ZYY
  * @since 2018-7-12
  */
-public class MapData {
+public class MapData implements Serializable {
 
     public static short[][][] LvMap;
     public static int[][] initPos = {

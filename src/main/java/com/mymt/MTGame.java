@@ -44,6 +44,7 @@ public class MTGame extends JPanel {
 
     // 游戏时间 分 秒
     public static JLabel timeLabel;
+    public static Timer timer;
     public static int gameMin = 0;
     public static double gameSec = 0;
 
@@ -53,9 +54,11 @@ public class MTGame extends JPanel {
     public static int currentFloor = 0;     // 当前楼层
     public static int maxFloor = 0;         // 最大楼层
 
+
     // 构造器
     public MTGame() {
         setLayout(null);
+
         gameFrame = new JFrame("魔塔 v1.0");
 
         // 初始化 时间面板
@@ -64,8 +67,12 @@ public class MTGame extends JPanel {
         timeLabel.setForeground(Color.WHITE);
         timeLabel.setFont(new Font("Serif", 0, 25));
 
+        //确保只存在一个计数器
+        if (timer!=null) {
+            timer.stop();
+        }
         // 初始化 图片帧数切换
-        new Timer(500, new ActionListener() {
+        timer = new Timer(500, new ActionListener() {
             boolean change = true;
 
             @Override
@@ -85,7 +92,8 @@ public class MTGame extends JPanel {
                 }
                 repaint();
             }
-        }).start();
+        });
+        timer.start();
     }
 
     // 重写 paintComponent() 方法。

@@ -29,97 +29,111 @@ import static java.awt.event.KeyEvent.*;
 public class Main {
 
     public static void main(String[] args) {
-
-        gamePanel = new MTGame();
-        gamePanel.setPreferredSize(new Dimension(GAME_PIX_72 * 18, GAME_PIX_72 * 13));
-
-        gamePanel.add(forecastLPane);
-        gamePanel.add(jumpLPane);
-        gamePanel.add(battleLPane);
-        gamePanel.add(msgLPane);
-        gamePanel.add(timeLabel);
-        gameFrame.addKeyListener(new KeyListener() {
-
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (!MTGame.inConversation)
-                    switch (e.getKeyCode()) {
-
-                        case VK_DOWN:   // 键盘 ↓
-                            if ( playerBean_1.getPosY() + 1 < 11 && playerBean_1.getPosY() + 1 >= 0) {
-                                playerBean_1.setToward(1);
-                                interaction(playerBean_1.getPosX(), playerBean_1.getPosY() + 1);
-                                gameFrame.repaint();
-                            }
-                            break;
-                        case VK_RIGHT:  // 键盘 →
-                            if (playerBean_1.getPosX() + 1 < 11 && playerBean_1.getPosX() + 1 >= 0) {
-                                playerBean_1.setToward(2);
-                                interaction(playerBean_1.getPosX() + 1, playerBean_1.getPosY());
-                                gameFrame.repaint();
-                            }
-                            break;
-                        case VK_UP:     // 键盘 ↑
-                            if (playerBean_1.getPosY() - 1 < 11 && playerBean_1.getPosY() - 1 >= 0) {
-                                playerBean_1.setToward(3);
-                                interaction(playerBean_1.getPosX(), playerBean_1.getPosY() - 1);
-                                gameFrame.repaint();
-                            }
-                            break;
-                        case VK_LEFT:   // 键盘 ←
-                            if (playerBean_1.getPosX() - 1 < 11 && playerBean_1.getPosX() - 1 >= 0) {
-                                playerBean_1.setToward(0);
-                                interaction(playerBean_1.getPosX() - 1, playerBean_1.getPosY());
-                                gameFrame.repaint();
-                            }
-                            break;
-                        case VK_J:      // 键盘 J
-                            if (ItemsBean.isHasJump) {
-                                displayJump();
-                            }
-                            break;
-                        case VK_L:      // 键盘 L
-                            if (ItemsBean.isHasForecast) {
-                                displayForecast();
-                            }
-                            break;
-                        case VK_F1:      // 键盘 F1，保存
-                            save((MTGame) gamePanel);
-                            break;
-                        case VK_F2:      // 键盘 F2，加载
-                            gamePanel = load();
-                            break;
-                    }
-                else if (e.getKeyCode() == e.VK_L)//bug
-                {
-                    inConversation = false;
-                    forecastLPane.removeAll();
-                    forecastLPane.setVisible(false);
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        });
-
-        gameFrame.setContentPane(gamePanel);
-        gameFrame.setResizable(false);
-        gameFrame.pack();
-        gameFrame.setLocationRelativeTo(null);
-        gameFrame.setVisible(true);
-        gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        MTMain mtMain = new MTMain();
+        int status = 0;
+        mtMain.start();
     }
 
-    public static void save(MTGame mtGame) {
-        SaveUtil.saveGame(mtGame);
+    public static void save(MTMain mtMain) {
+        SaveUtil.saveGame(mtMain);
     }
 
-    public static MTGame load() {
+    public static MTMain load() {
         return SaveUtil.loadGame();
     }
+
+//    public static void main(String[] args) {
+//
+//        gamePanel = new MTGame();
+//        gamePanel.setPreferredSize(new Dimension(GAME_PIX_72 * 18, GAME_PIX_72 * 13));
+//
+//        gamePanel.add(forecastLPane);
+//        gamePanel.add(jumpLPane);
+//        gamePanel.add(battleLPane);
+//        gamePanel.add(msgLPane);
+//        gamePanel.add(timeLabel);
+//        gameFrame.addKeyListener(new KeyListener() {
+//
+//            @Override
+//            public void keyTyped(KeyEvent e) {
+//            }
+//
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//                if (!MTGame.inConversation)
+//                    switch (e.getKeyCode()) {
+//
+//                        case VK_DOWN:   // 键盘 ↓
+//                            if ( playerBean_1.getPosY() + 1 < 11 && playerBean_1.getPosY() + 1 >= 0) {
+//                                playerBean_1.setToward(1);
+//                                interaction(playerBean_1.getPosX(), playerBean_1.getPosY() + 1);
+//                                gameFrame.repaint();
+//                            }
+//                            break;
+//                        case VK_RIGHT:  // 键盘 →
+//                            if (playerBean_1.getPosX() + 1 < 11 && playerBean_1.getPosX() + 1 >= 0) {
+//                                playerBean_1.setToward(2);
+//                                interaction(playerBean_1.getPosX() + 1, playerBean_1.getPosY());
+//                                gameFrame.repaint();
+//                            }
+//                            break;
+//                        case VK_UP:     // 键盘 ↑
+//                            if (playerBean_1.getPosY() - 1 < 11 && playerBean_1.getPosY() - 1 >= 0) {
+//                                playerBean_1.setToward(3);
+//                                interaction(playerBean_1.getPosX(), playerBean_1.getPosY() - 1);
+//                                gameFrame.repaint();
+//                            }
+//                            break;
+//                        case VK_LEFT:   // 键盘 ←
+//                            if (playerBean_1.getPosX() - 1 < 11 && playerBean_1.getPosX() - 1 >= 0) {
+//                                playerBean_1.setToward(0);
+//                                interaction(playerBean_1.getPosX() - 1, playerBean_1.getPosY());
+//                                gameFrame.repaint();
+//                            }
+//                            break;
+//                        case VK_J:      // 键盘 J
+//                            if (ItemsBean.isHasJump) {
+//                                displayJump();
+//                            }
+//                            break;
+//                        case VK_L:      // 键盘 L
+//                            if (ItemsBean.isHasForecast) {
+//                                displayForecast();
+//                            }
+//                            break;
+//                        case VK_F1:      // 键盘 F1，保存
+//                            save((MTGame) gamePanel);
+//                            break;
+//                        case VK_F2:      // 键盘 F2，加载
+//                            gamePanel = load();
+//                            break;
+//                    }
+//                else if (e.getKeyCode() == e.VK_L)//bug
+//                {
+//                    inConversation = false;
+//                    forecastLPane.removeAll();
+//                    forecastLPane.setVisible(false);
+//                }
+//            }
+//
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//            }
+//        });
+//
+//        gameFrame.setContentPane(gamePanel);
+//        gameFrame.setResizable(false);
+//        gameFrame.pack();
+//        gameFrame.setLocationRelativeTo(null);
+//        gameFrame.setVisible(true);
+//        gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//    }
+//
+//    public static void save(MTGame mtGame) {
+//        SaveUtil.saveGame(mtGame);
+//    }
+//
+//    public static MTGame load() {
+//        return SaveUtil.loadGame();
+//    }
 }

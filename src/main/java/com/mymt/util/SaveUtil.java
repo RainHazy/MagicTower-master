@@ -1,6 +1,8 @@
 package com.mymt.util;
 
 import com.mymt.MTGame;
+import com.mymt.MTMain;
+import com.mymt.data.MTGameData;
 
 import java.io.*;
 import java.util.Properties;
@@ -102,22 +104,46 @@ public class SaveUtil {
     }
 
     // 保存游戏状态到文件
-    public static void saveGame(MTGame mtGame) {
+    public static void saveGame(MTMain mtMain) {
         try (FileOutputStream fileOut = new FileOutputStream(savePath);
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-            out.writeObject(mtGame);
+
+            // 保存MTGame的静态状态
+            MTGameData gameState = MTGameData.captureState();
+            out.writeObject(gameState);
+
+            // 保存MTMain实例
+            out.writeObject(mtMain);
+            System.out.println("游戏已保存！");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     // 从文件加载游戏状态
-    public static MTGame loadGame()  {
+    public static MTMain loadGame()  {
         try (FileInputStream fileIn = new FileInputStream(savePath);
              ObjectInputStream in = new ObjectInputStream(fileIn)) {
-            return (MTGame) in.readObject();
+
+            // 加载并应用MTGame的静态状态
+            MTGameData gameState = (MTGameData) in.readObject();
+            gameState.applyState();
+
+            // 加载MTMain实例
+            MTMain loadedGame = (MTMain) in.readObject();
+            System.out.println("游戏已加载！");
+            return loadedGame;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public static void save(MTMain mtMain) {
+        saveGame(mtMain);
+    }
+
+    public static MTMain load() {
+        return loadGame();
     }
 }
