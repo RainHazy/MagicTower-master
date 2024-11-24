@@ -15,7 +15,6 @@ import java.util.HashMap;
 
 import static com.mymt.data.MapData.*;
 import static com.mymt.util.SaveUtil.load;
-
 /**
  * MTGame 类
  * <p>
@@ -63,7 +62,7 @@ public class MTGame extends JPanel {
     public MTGame() {
         setLayout(null);
 
-        gameFrame = new JFrame("魔塔 v1.0");
+        gameFrame = new JFrame("魔塔 v1.2");
 
         // 初始化 时间面板
         timeLabel = new JLabel();
@@ -237,6 +236,7 @@ public class MTGame extends JPanel {
             case 20:    // 星空
                 break;
             case 22:    // 商店
+                inConversation = true;
                 if (currentFloor == 3) {
                     ShopUtil.shop(0);
                 } else if (currentFloor == 11) {
@@ -244,11 +244,26 @@ public class MTGame extends JPanel {
                 }
                 break;
             case 24:    // [对话] 仙子
+                inConversation = true;
                 new DialoguesBean(id);
                 break;
             case 25:    // [对话] 小偷
             case 26:    // [对话] 老人
+                inConversation = true;
+                if (currentFloor == 5) {
+                    ShopUtil.shop(1);
+                } else if (currentFloor == 13) {
+                    ShopUtil.shop(5);
+                }
+                break;
             case 27:    // [对话] 商人
+                inConversation = true;
+                if (currentFloor == 5) {
+                    ShopUtil.shop(2);
+                } else if (currentFloor == 12) {
+                    ShopUtil.shop(4);
+                }
+                break;
             case 28:    // [对话] 公主
                 LvMap[currentFloor][y][x] = 0;
                 playerBean_1.move(x, y);

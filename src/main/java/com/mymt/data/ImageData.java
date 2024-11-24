@@ -30,7 +30,7 @@ public class ImageData {
     private static final int PLAYER_UP = -4;
 
     public static HashMap<Integer, BufferedImage> playerMap = new HashMap<>();
-    public static HashMap<Integer, BufferedImage> imagesMap0 = new HashMap<>();
+    public static HashMap<Integer, BufferedImage>  imagesMap0 = new HashMap<>();
     public static HashMap<Integer, BufferedImage> imagesMap1 = new HashMap<>();
     public static BufferedImage gameBgImg;
     public static BufferedImage blankBgImg;
@@ -147,6 +147,8 @@ public class ImageData {
             imagesMap0.put(303, ImageIO.read(new File(System.getProperty("user.dir") + "/res/map0/14.png")));
             imagesMap0.put(304, ImageIO.read(new File(System.getProperty("user.dir") + "/res/map0/14.png")));
             imagesMap0.put(305, ImageIO.read(new File(System.getProperty("user.dir") + "/res/map0/5.png")));
+            //新增
+            imagesMap0.put(401, ImageIO.read(new File(System.getProperty("user.dir") + "/res/map0/24.png")));
 
             // 玩家 控制图片
             playerMap.clear();

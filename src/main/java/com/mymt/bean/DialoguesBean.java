@@ -8,7 +8,7 @@ import com.mymt.util.DialogUtil;
 import java.awt.image.BufferedImage;
 
 import static com.mymt.MTGame.currentFloor;
-
+import static com.mymt.data.RoleTalkNumData.*;
 /**
  * DialoguesBean 类
  * <p>
@@ -40,6 +40,11 @@ public class DialoguesBean {
         }
         switch (this.id) {
             case 24:     // 第 0 层 仙子 第一次对话
+                //已经进行过第一次对话，且没有找到十字架
+                if (xianNv==1 && !ItemsBean.isHasCross) {
+                    MTGame.inConversation = false;
+                    break;
+                }
                 messages = new String[]{
                         "    ······",
                         "    你醒了!",
@@ -85,6 +90,7 @@ public class DialoguesBean {
                 MTGame.playerBean_1.setYkey(MTGame.playerBean_1.getYkey() + 1);
                 MTGame.playerBean_1.setBkey(MTGame.playerBean_1.getBkey() + 1);
                 MTGame.playerBean_1.setRkey(MTGame.playerBean_1.getRkey() + 1);
+                xianNv=1;
                 break;
             case 1:     // 第 0 层 仙子 找到十字架后
 //                if (!MTGame.hasCross) {

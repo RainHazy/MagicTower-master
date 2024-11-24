@@ -28,6 +28,7 @@ public class MTGameData implements Serializable {
     public int currentFloor;
     public int maxFloor;
     public short[][][] LvMap;
+    public int xianNv;
 
     // 从当前静态状态创建MTGameState实例
     public static MTGameData captureState() {
@@ -43,6 +44,7 @@ public class MTGameData implements Serializable {
         state.currentFloor = MTGame.currentFloor;
         state.maxFloor = MTGame.maxFloor;
         state.LvMap = MapData.LvMap;
+        state.xianNv = RoleTalkNumData.xianNv;
         return state;
     }
 

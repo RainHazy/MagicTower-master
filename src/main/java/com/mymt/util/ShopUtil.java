@@ -72,7 +72,7 @@ public class ShopUtil {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (selection != 3 && e.getKeyCode() == e.VK_S) {
+                if (selection != 3 && e.getKeyCode() == e.VK_DOWN) {
                     choice[selection] = choice[selection].replaceAll("▶", "▷");
                     selection = selection + 1;
                     choice[selection] = choice[selection].replaceAll("▷", "▶");
@@ -80,7 +80,7 @@ public class ShopUtil {
                     text.setText(message);
                     gameFrame.repaint();
                 }
-                if (selection != 0 && e.getKeyCode() == e.VK_W) {
+                if (selection != 0 && e.getKeyCode() == e.VK_UP) {
                     choice[selection] = choice[selection].replaceAll("▶", "▷");
                     selection = selection - 1;
                     choice[selection] = choice[selection].replaceAll("▷", "▶");

@@ -5,7 +5,7 @@ import com.mymt.MTMain;
 import com.mymt.data.MTGameData;
 
 import java.io.*;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * @author ：zzf
@@ -18,78 +18,59 @@ public class SaveUtil {
     static String savePath = "data/save/save1";
     static Properties properties = new Properties();
 
-    //将三维数组转成字符串
-    public static String short3ToString(short[][][] array) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < array.length; i++) {
-            sb.append("{");
-            for (int j = 0; j < array[i].length; j++) {
-                sb.append("{");
-                for (int k = 0; k < array[i][j].length; k++) {
-                    sb.append(array[i][j][k]);
-                    if (k < array[i][j].length - 1) {
-                        sb.append(",");
+    /**
+     * 保存 key 和 data 到配置文件
+     *
+     * @param key  要保存的键
+     * @param data 要保存的值
+     */
+    public static void save(String key, String data) {
+        File configFile = new File(basePath);
+        List<String> lines = new ArrayList<>();
+        boolean keyExists = false;
+
+        // 读取现有配置文件
+        if (configFile.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(configFile))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    line = line.trim();
+                    // 如果是注释或空行，直接保留
+                    if (line.startsWith("#") || line.isEmpty()) {
+                        lines.add(line);
+                    } else {
+                        // 如果是键值对，检查是否需要更新
+                        String[] keyValue = line.split("=", 2);
+                        if (keyValue.length == 2 && keyValue[0].trim().equals(key)) {
+                            // 更新键值对
+                            lines.add(key + "=" + data);
+                            keyExists = true;
+                        } else {
+                            lines.add(line);
+                        }
                     }
                 }
-                sb.append("}");
-                if (j < array[i].length - 1) {
-                    sb.append(",");
-                }
-            }
-            sb.append("}");
-            if (i < array.length - 1) {
-                sb.append(",");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
-        return sb.toString();
-    }
 
-    // 将字符串转换回 short[][][]
-    public static short[][][] stringToShort3(String data) {
-        // 解析字符串，去掉外层的括号，分解成 short[][][] 数组
-        data = data.replaceAll("[{}]", ""); // 去掉所有大括号
-        String[] levels = data.split("\\],\\["); // 按 "]," 分隔每一层
-
-        short[][][] result = new short[levels.length][][];
-
-        for (int i = 0; i < levels.length; i++) {
-            String[] rows = levels[i].split("],\\[");
-            result[i] = new short[rows.length][];
-
-            for (int j = 0; j < rows.length; j++) {
-                String[] values = rows[j].split(",");
-                result[i][j] = new short[values.length];
-
-                for (int k = 0; k < values.length; k++) {
-                    result[i][j][k] = Short.parseShort(values[k].trim());
-                }
-            }
+        // 如果键不存在，添加到文件末尾
+        if (!keyExists) {
+            lines.add(key + "=" + data);
         }
-        return result;
-    }
 
-    // 保存 到配置文件
-    public static void save(String key, String data) {
-        Properties properties = new Properties();
-
-        // 设置 LvMap 参数
-        properties.setProperty(key, data);
-
-        // 保存到文件
-        File file = new File(basePath);
-        try {
-            if (!file.exists()) {
-                file.getParentFile().mkdirs(); // 创建目录
-                file.createNewFile(); // 创建文件
+        // 写入更新后的内容到配置文件
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(configFile))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
             }
-
-            try (FileOutputStream fos = new FileOutputStream(file)) {
-                properties.store(fos, "Saved short[][][] array to properties file");
-            }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     // 从配置文件中读取
     public static String load(String key)  {
