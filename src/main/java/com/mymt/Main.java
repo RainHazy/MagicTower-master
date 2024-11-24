@@ -29,19 +29,10 @@ import static java.awt.event.KeyEvent.*;
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println("~~~~~~~~~开始游戏~~~~~~~~~");
         MTMain mtMain = new MTMain();
-        int status = 0;
         mtMain.start();
     }
-
-    public static void save(MTMain mtMain) {
-        SaveUtil.saveGame(mtMain);
-    }
-
-    public static MTMain load() {
-        return SaveUtil.loadGame();
-    }
-
 //    public static void main(String[] args) {
 //
 //        gamePanel = new MTGame();

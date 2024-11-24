@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.util.HashMap;
 
 import static com.mymt.data.MapData.*;
+import static com.mymt.util.SaveUtil.load;
 
 /**
  * MTGame 类
@@ -48,12 +49,15 @@ public class MTGame extends JPanel {
     public static int gameMin = 0;
     public static double gameSec = 0;
 
-    // 全局变量
+    // speedLabel
     public static boolean inConversation = false;   // 允许键盘交互
     public static boolean talked = false;
     public static int currentFloor = 0;     // 当前楼层
     public static int maxFloor = 0;         // 最大楼层
 
+    //战斗速度面板
+    public static JLabel speedLabel;
+    public static int speed_level = Integer.parseInt(load("speed_level"));
 
     // 构造器
     public MTGame() {
@@ -66,6 +70,13 @@ public class MTGame extends JPanel {
         timeLabel.setBounds(80, 800, 250, 100);
         timeLabel.setForeground(Color.WHITE);
         timeLabel.setFont(new Font("Serif", 0, 25));
+
+        // 初始化 战斗速度面板
+        speedLabel = new JLabel();
+        speedLabel.setBounds(80, 20, 250, 50);
+        speedLabel.setForeground(Color.BLACK);
+        speedLabel.setFont(new Font("Serif", 0, 25));
+        speedLabel.setText(" 战斗速度：*" + (speed_level+1) );
 
         //确保只存在一个计数器
         if (timer!=null) {

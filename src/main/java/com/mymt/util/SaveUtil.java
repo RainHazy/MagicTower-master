@@ -14,10 +14,9 @@ import java.util.Properties;
  */
 public class SaveUtil {
 
-    static String basePath = "data/base";
+    static String basePath = "data/base/baseData.properties";
     static String savePath = "data/save/save1";
     static Properties properties = new Properties();
-    static File baseFile = new File(basePath+"/file1.properties");
 
     //将三维数组转成字符串
     public static String short3ToString(short[][][] array) {
@@ -70,28 +69,32 @@ public class SaveUtil {
     }
 
     // 保存 到配置文件
-    public static void save(String key, String data) throws IOException {
+    public static void save(String key, String data) {
         Properties properties = new Properties();
 
         // 设置 LvMap 参数
         properties.setProperty(key, data);
 
-        // 保存到文件 src/main/resources/config/file1.properties
-        File file = new File(baseFile+"/baseData.properties");
-        if (!file.exists()) {
-            file.getParentFile().mkdirs(); // 创建目录
-            file.createNewFile(); // 创建文件
-        }
+        // 保存到文件
+        File file = new File(basePath);
+        try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // 创建目录
+                file.createNewFile(); // 创建文件
+            }
 
-        try (FileOutputStream fos = new FileOutputStream(file)) {
-            properties.store(fos, "Saved short[][][] array to properties file");
+            try (FileOutputStream fos = new FileOutputStream(file)) {
+                properties.store(fos, "Saved short[][][] array to properties file");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     // 从配置文件中读取
     public static String load(String key)  {
 
-        try (FileInputStream fis = new FileInputStream(baseFile)) {
+        try (FileInputStream fis = new FileInputStream(basePath)) {
             properties.load(fis);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
