@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import static com.mymt.MTGame.GAME_PIX_72;
 import static com.mymt.MTGame.currentFloor;
 import static com.mymt.data.MapData.LvMap;
+import static com.mymt.util.SaveUtil.*;
 
 /**
  * BattleUtil 工具类
@@ -42,6 +43,8 @@ public class BattleUtil {
     private int hp;
     private int attack;
     private int defend;
+    public int[] speed = {500,250,150};//速度档次
+    public int speed_level = Integer.parseInt(load("speed_level"));
 
     /**
      * @param id 怪物id
@@ -112,7 +115,7 @@ public class BattleUtil {
         player_defend.setText(MTGame.playerBean_1.getDefend() + "");
         battleLPane.setVisible(true);
         MTGame.inConversation = true;
-        Timer bFrame = new Timer(500, new ActionListener() {
+        Timer bFrame = new Timer(speed[speed_level], new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ex) {
