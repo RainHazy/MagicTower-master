@@ -1,4 +1,4 @@
-Manifest-Version: 1.0
+Manifest-Version: 1.1
 Main-Class: com.mymt.Main
 Class-Path: lib/fastjson-1.2.83.jar
 

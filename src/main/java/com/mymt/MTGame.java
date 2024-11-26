@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 import static com.mymt.data.MapData.*;
 import static com.mymt.util.SaveUtil.load;
+
 /**
  * MTGame 类
  * <p>
