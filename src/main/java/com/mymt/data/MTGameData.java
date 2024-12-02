@@ -1,6 +1,7 @@
 package com.mymt.data;
 
 import com.mymt.MTGame;
+import com.mymt.bean.ItemsBean;
 import com.mymt.bean.PlayerBean;
 
 import javax.swing.*;
@@ -29,6 +30,7 @@ public class MTGameData implements Serializable {
     public int maxFloor;
     public short[][][] LvMap;
     public int xianNv;
+    public ItemsBean itemsBean;
 
     // 从当前静态状态创建MTGameState实例
     public static MTGameData captureState() {
@@ -45,6 +47,7 @@ public class MTGameData implements Serializable {
         state.maxFloor = MTGame.maxFloor;
         state.LvMap = MapData.LvMap;
         state.xianNv = RoleTalkNumData.xianNv;
+        state.itemsBean = MTGame.itemsBean;
         return state;
     }
 
@@ -61,5 +64,6 @@ public class MTGameData implements Serializable {
         MTGame.currentFloor = this.currentFloor;
         MTGame.maxFloor = this.maxFloor;
         MapData.LvMap = this.LvMap;
+        MTGame.itemsBean = this.itemsBean;
     }
 }

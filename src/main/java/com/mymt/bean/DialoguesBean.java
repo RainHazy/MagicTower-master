@@ -41,57 +41,72 @@ public class DialoguesBean {
         switch (this.id) {
             case 24:     // 第 0 层 仙子 第一次对话
                 //已经进行过第一次对话，且没有找到十字架
-                if (xianNv==1 && !ItemsBean.isHasCross) {
-                    MTGame.inConversation = false;
-                    break;
-                }
-                messages = new String[]{
-                        "    ······",
-                        "    你醒了!",
-                        "    ······\n    你是谁？我在哪里？",
-                        "    我是这里的仙子，刚才你被这里的小怪打昏了。",
-                        "    ······\n    剑，剑，我的剑呢？",
-                        "    你的剑被他们抢走了，我只来得及将你救出来。",
-                        "    那，公主呢？我是来救公主的。",
-                        "    公主还在里面，你这样进去是打不过里面的小怪的。",
-                        "    那我怎么办，我答应了国王一定要把公主救出来" +
-                                "的，那我现在应该怎么办呢？",
-                        "    放心吧，我把我的力量借给你，你就可以打赢那些小" +
-                                "怪了。不过，你的先去帮我去找一样东西，找到了再来这" +
-                                "里找我。",
-                        "    找东西？找什么东西？",
-                        "    是一个十字架，中间有一颗红色的宝石。",
-                        "    那个东西有什么用吗？",
-                        "    我本是这座塔守护者，可不久前，从北方来了一批恶" +
-                                "魔，他们占领了这座塔，并将我的魔力封在了这个十字" +
-                                "架里面，如果你能将它带出塔来，那我的魔力便会慢慢" +
-                                "地恢复，到那时我便可以把力量借给你去救公主了。\n" +
-                                "    要记住，只有用我的魔力才可以打开二十一层的门。",
-                        "    ······\n    好吧，我试试看。",
-                        "    刚才我去看过了，你的剑被放在三楼，你的盾在五楼" +
-                                "上，而那个十字架被放在七楼。要到七楼，你的先取回" +
-                                "你的剑和盾。\n    另外在塔里的其他楼层" +
-                                "上，还有一些存放了好几百年的宝剑和宝物，如果得到" +
-                                "它们，对于你对付这里面的怪物将有很大的帮助。",
-                        "    ······\n    可是，我怎么进去呢?",
-                        "    我这里有三把钥匙，你先拿去，在塔里面还有很多这" +
-                                "样的钥匙，你一定要珍惜使用。\n" +
-                                "    勇敢的去吧，勇士！"
-                };
-                h[9] = 220;
-                h[13] = 400;
-                h[15] = 380;
-                h[17] = 200;
-                DialogUtil.talk(messages, characters, w, h);
-                MapData.LvMap[currentFloor][8][5] = 0;
-                MapData.LvMap[currentFloor][8][4] = 24;
+                if (xianNv==0) {
+                    messages = new String[]{
+                            "    ······",
+                            "    你醒了!",
+                            "    ······\n    你是谁？我在哪里？",
+                            "    我是这里的仙子，刚才你被这里的小怪打昏了。",
+                            "    ······\n    剑，剑，我的剑呢？",
+                            "    你的剑被他们抢走了，我只来得及将你救出来。",
+                            "    那，公主呢？我是来救公主的。",
+                            "    公主还在里面，你这样进去是打不过里面的小怪的。",
+                            "    那我怎么办，我答应了国王一定要把公主救出来" +
+                                    "的，那我现在应该怎么办呢？",
+                            "    放心吧，我把我的力量借给你，你就可以打赢那些小" +
+                                    "怪了。不过，你的先去帮我去找一样东西，找到了再来这" +
+                                    "里找我。",
+                            "    找东西？找什么东西？",
+                            "    是一个十字架，中间有一颗红色的宝石。",
+                            "    那个东西有什么用吗？",
+                            "    我本是这座塔守护者，可不久前，从北方来了一批恶" +
+                                    "魔，他们占领了这座塔，并将我的魔力封在了这个十字" +
+                                    "架里面，如果你能将它带出塔来，那我的魔力便会慢慢" +
+                                    "地恢复，到那时我便可以把力量借给你去救公主了。\n" +
+                                    "    要记住，只有用我的魔力才可以打开二十一层的门。",
+                            "    ······\n    好吧，我试试看。",
+                            "    刚才我去看过了，你的剑被放在三楼，你的盾在五楼" +
+                                    "上，而那个十字架被放在七楼。要到七楼，你的先取回" +
+                                    "你的剑和盾。\n    另外在塔里的其他楼层" +
+                                    "上，还有一些存放了好几百年的宝剑和宝物，如果得到" +
+                                    "它们，对于你对付这里面的怪物将有很大的帮助。",
+                            "    ······\n    可是，我怎么进去呢?",
+                            "    我这里有三把钥匙，你先拿去，在塔里面还有很多这" +
+                                    "样的钥匙，你一定要珍惜使用。\n" +
+                                    "    勇敢的去吧，勇士！"
+                    };
+                    h[9] = 220;
+                    h[13] = 400;
+                    h[15] = 380;
+                    h[17] = 200;
+                    DialogUtil.talk(messages, characters, w, h);
+                    MapData.LvMap[currentFloor][8][5] = 0;
+                    MapData.LvMap[currentFloor][8][4] = 24;
 //                MTGame.baseBeanMap[0][4][8] = new DialoguesBean(1);
 //                MTGame.baseBeanMap[0][5][8] = null;
-                MTGame.playerBean_1.setYkey(MTGame.playerBean_1.getYkey() + 1);
-                MTGame.playerBean_1.setBkey(MTGame.playerBean_1.getBkey() + 1);
-                MTGame.playerBean_1.setRkey(MTGame.playerBean_1.getRkey() + 1);
-                xianNv=1;
-                break;
+                    MTGame.playerBean_1.setYkey(MTGame.playerBean_1.getYkey() + 1);
+                    MTGame.playerBean_1.setBkey(MTGame.playerBean_1.getBkey() + 1);
+                    MTGame.playerBean_1.setRkey(MTGame.playerBean_1.getRkey() + 1);
+                    xianNv=1;
+                } else if (xianNv==1 && !MTGame.itemsBean.isHasCross) {
+                    MTGame.inConversation = false;
+                    break;
+                } else if (xianNv==1 && MTGame.itemsBean.isHasCross) {
+                    MTGame.inConversation = false;
+                    messages = new String[]{
+                            "    仙子，我已经将那个十字架找到了。",
+                            "    你做得很好。\n    那么现在我就开始授予" +
+                                    "你更强的力量！\n    咪啦哆咪哔······\n" +
+                                    "    好了，我已经将你现在的能力提升了！\n" +
+                                    "    记住：如果你没有足够的实力的话，不要去第二十一" +
+                                    "层！在那一层里，你所有宝物的法力都会失去作用！"
+                    };
+                    DialogUtil.talk(messages, characters, w, h);
+                    MTGame.playerBean_1.setHp(MTGame.playerBean_1.getHp() * 4 / 3);
+                    MTGame.playerBean_1.setAttack(MTGame.playerBean_1.getAttack() * 4 / 3);
+                    MTGame.playerBean_1.setDefend(MTGame.playerBean_1.getDefend() * 4 / 3);
+                    xianNv=2;
+                }
             case 1:     // 第 0 层 仙子 找到十字架后
 //                if (!MTGame.hasCross) {
 //                    MTGame.inConversation = false;

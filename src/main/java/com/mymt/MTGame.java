@@ -39,6 +39,7 @@ public class MTGame extends JPanel {
 
     public static HashMap<Integer, BufferedImage> imgSource = ImageData.imagesMap0;     // 用于帧数切换
     public static PlayerBean playerBean_1 = new PlayerBean();                           // 用于保存玩家属性数值
+    public static ItemsBean itemsBean = new ItemsBean();
 
     public static JFrame gameFrame;
     public static JPanel gamePanel;
@@ -290,7 +291,7 @@ public class MTGame extends JPanel {
             case 32:    // [宝物] 幸运十字架
                 LvMap[currentFloor][y][x] = 0;
                 playerBean_1.move(x, y);
-                ItemsBean.isHasCross = true;
+                itemsBean.isHasCross = true;
                 MsgUtil.displayMessage("【幸运十字架】 把它交给序章中的仙子，可以将自身的所有能力提升一些（攻击、防御和生命值）。");
                 break;
             case 33:    // [宝物] 圣水瓶
@@ -302,13 +303,13 @@ public class MTGame extends JPanel {
             case 34:    // [宝物] 圣光徽
                 LvMap[currentFloor][y][x] = 0;
                 playerBean_1.move(x, y);
-                ItemsBean.isHasForecast = true;
+                itemsBean.isHasForecast = true;
                 MsgUtil.displayMessage("【圣光徽】 按 L 键使用 查看怪物的基本情况。");
                 break;
             case 35:    // [宝物] 风之罗盘
                 LvMap[currentFloor][y][x] = 0;
                 playerBean_1.move(x, y);
-                ItemsBean.isHasJump = true;
+                itemsBean.isHasJump = true;
                 MsgUtil.displayMessage("【风之罗盘】 按 J 键使用 在已经走过的楼层间进行跳跃。");
                 break;
             case 36:    // [道具] 钥匙盒
@@ -322,7 +323,7 @@ public class MTGame extends JPanel {
             case 38:    // [宝物] 星光神榔
                 LvMap[currentFloor][y][x] = 0;
                 playerBean_1.move(x, y);
-                ItemsBean.isHasHammer = true;
+                itemsBean.isHasHammer = true;
                 MsgUtil.displayMessage("【星光神榔】 把它交给第四层的小偷，小偷便会用它打开第十八层的隐藏地面（你就可以救出公主了）。");
                 break;
             case 39:    // [道具] 金块
