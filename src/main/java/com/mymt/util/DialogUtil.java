@@ -91,4 +91,50 @@ public class DialogUtil {
             }
         });
     }
+
+    // 弹框信息提示
+    public static void info(String[] messages, int[] w, int[] h) {
+        int infoX = 675; // 文字位置x轴
+        int infoY = 400; // 文字位置y轴
+        Insets insets = dialogLPane.getInsets();
+        text.setBounds(90 + insets.left, 20 + insets.top, w[0] - 100, h[0]);
+        text.setText(messages[0]);
+        dialogBgImg.setBounds(0, 0, w[0], h[0]);
+        dialogLPane.setBounds(infoX, infoY, w[0], h[0]);
+        dialogLPane.add(text, 3, 0);
+        gamePanel.add(dialogLPane);
+        gamePanel.repaint();
+
+        gameFrame.addKeyListener(new KeyListener() {
+            int count = 0;
+            int x = 0, y = 0;
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                dialogLPane.remove(imgIco);
+                dialogLPane.remove(text);
+                gamePanel.remove(dialogLPane);
+                count++;
+                if (count >= messages.length) {
+                    gameFrame.removeKeyListener(this);
+                    return;
+                }
+                text.setBounds(90 + insets.left, 20 + insets.top, w[count] - 100, h[count]);
+                text.setText(messages[count]);
+                dialogBgImg.setBounds(0, 0, w[count], h[count]);
+                dialogLPane.setBounds(infoX, infoY, w[count], h[count]);
+                dialogLPane.add(text, 3, 0);
+                gamePanel.add(dialogLPane);
+                gamePanel.repaint();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        });
+    }
 }

@@ -382,6 +382,7 @@ public class DialoguesBean {
                     MTGame.playerBean_1.setDefend(MTGame.playerBean_1.getDefend() * 4 / 3);
                     xianNv=2;
                 }
+                break;
 //            case 99:    // 第 15 层 神秘老人对话（得到圣光剑，攻击+120）
 //                messages = new String[]{
 //                        "你好，勇敢的孩子，你终于来到这里了。" +

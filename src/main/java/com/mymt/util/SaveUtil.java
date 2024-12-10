@@ -2,8 +2,10 @@ package com.mymt.util;
 
 import com.mymt.MTGame;
 import com.mymt.MTMain;
+import com.mymt.data.ImageData;
 import com.mymt.data.MTGameData;
 
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
 
@@ -98,6 +100,15 @@ public class SaveUtil {
 
             // 保存MTMain实例
             out.writeObject(mtMain);
+            String[] messages = new String[]{
+                    "保存成功!"
+            };
+            int[] w = new int[1];
+            int[] h = new int[1];
+            w[0] = 300;
+            h[0] = 80;
+            DialogUtil.info(messages, w, h);
+
             System.out.println("游戏已保存！");
         } catch (Exception e) {
             throw new RuntimeException(e);

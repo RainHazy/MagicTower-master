@@ -35,8 +35,8 @@ public class MTGameData implements Serializable {
     public static MTGameData captureState() {
         MTGameData state = new MTGameData();
 //        state.imgSource = new HashMap<>(MTGame.imgSource); // 复制图像源
-        state.gameFrame = MTGame.gameFrame;
-        state.gamePanel = MTGame.gamePanel;
+        gameFrame = MTGame.gameFrame;
+        gamePanel = MTGame.gamePanel;
         state.playerBean_1 = MTGame.playerBean_1;          // 保存玩家属性
         state.gameMin = MTGame.gameMin;
         state.gameSec = MTGame.gameSec;
@@ -52,8 +52,8 @@ public class MTGameData implements Serializable {
     // 将MTGameState实例应用到静态状态
     public void applyState() {
 //        MTGame.imgSource = this.imgSource;
-        MTGame.gameFrame = this.gameFrame;
-        MTGame.gamePanel = this.gamePanel;
+        MTGame.gameFrame = gameFrame;
+        MTGame.gamePanel = gamePanel;
         MTGame.playerBean_1 = this.playerBean_1;
         MTGame.gameMin = this.gameMin;
         MTGame.gameSec = this.gameSec;
