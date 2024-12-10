@@ -4,6 +4,7 @@ import com.mymt.MTGame;
 import com.mymt.data.ImageData;
 import com.mymt.data.MapData;
 import com.mymt.util.DialogUtil;
+import com.mymt.util.ShopUtil;
 
 import java.awt.image.BufferedImage;
 
@@ -39,74 +40,6 @@ public class DialoguesBean {
             }
         }
         switch (this.id) {
-            case 24:     // 第 0 层 仙子 第一次对话
-                //已经进行过第一次对话，且没有找到十字架
-                if (xianNv==0) {
-                    messages = new String[]{
-                            "    ······",
-                            "    你醒了!",
-                            "    ······\n    你是谁？我在哪里？",
-                            "    我是这里的仙子，刚才你被这里的小怪打昏了。",
-                            "    ······\n    剑，剑，我的剑呢？",
-                            "    你的剑被他们抢走了，我只来得及将你救出来。",
-                            "    那，公主呢？我是来救公主的。",
-                            "    公主还在里面，你这样进去是打不过里面的小怪的。",
-                            "    那我怎么办，我答应了国王一定要把公主救出来" +
-                                    "的，那我现在应该怎么办呢？",
-                            "    放心吧，我把我的力量借给你，你就可以打赢那些小" +
-                                    "怪了。不过，你的先去帮我去找一样东西，找到了再来这" +
-                                    "里找我。",
-                            "    找东西？找什么东西？",
-                            "    是一个十字架，中间有一颗红色的宝石。",
-                            "    那个东西有什么用吗？",
-                            "    我本是这座塔守护者，可不久前，从北方来了一批恶" +
-                                    "魔，他们占领了这座塔，并将我的魔力封在了这个十字" +
-                                    "架里面，如果你能将它带出塔来，那我的魔力便会慢慢" +
-                                    "地恢复，到那时我便可以把力量借给你去救公主了。\n" +
-                                    "    要记住，只有用我的魔力才可以打开二十一层的门。",
-                            "    ······\n    好吧，我试试看。",
-                            "    刚才我去看过了，你的剑被放在三楼，你的盾在五楼" +
-                                    "上，而那个十字架被放在七楼。要到七楼，你的先取回" +
-                                    "你的剑和盾。\n    另外在塔里的其他楼层" +
-                                    "上，还有一些存放了好几百年的宝剑和宝物，如果得到" +
-                                    "它们，对于你对付这里面的怪物将有很大的帮助。",
-                            "    ······\n    可是，我怎么进去呢?",
-                            "    我这里有三把钥匙，你先拿去，在塔里面还有很多这" +
-                                    "样的钥匙，你一定要珍惜使用。\n" +
-                                    "    勇敢的去吧，勇士！"
-                    };
-                    h[9] = 220;
-                    h[13] = 400;
-                    h[15] = 380;
-                    h[17] = 200;
-                    DialogUtil.talk(messages, characters, w, h);
-                    MapData.LvMap[currentFloor][8][5] = 0;
-                    MapData.LvMap[currentFloor][8][4] = 24;
-//                MTGame.baseBeanMap[0][4][8] = new DialoguesBean(1);
-//                MTGame.baseBeanMap[0][5][8] = null;
-                    MTGame.playerBean_1.setYkey(MTGame.playerBean_1.getYkey() + 1);
-                    MTGame.playerBean_1.setBkey(MTGame.playerBean_1.getBkey() + 1);
-                    MTGame.playerBean_1.setRkey(MTGame.playerBean_1.getRkey() + 1);
-                    xianNv=1;
-                } else if (xianNv==1 && !MTGame.itemsBean.isHasCross) {
-                    MTGame.inConversation = false;
-                    break;
-                } else if (xianNv==1 && MTGame.itemsBean.isHasCross) {
-                    MTGame.inConversation = false;
-                    messages = new String[]{
-                            "    仙子，我已经将那个十字架找到了。",
-                            "    你做得很好。\n    那么现在我就开始授予" +
-                                    "你更强的力量！\n    咪啦哆咪哔······\n" +
-                                    "    好了，我已经将你现在的能力提升了！\n" +
-                                    "    记住：如果你没有足够的实力的话，不要去第二十一" +
-                                    "层！在那一层里，你所有宝物的法力都会失去作用！"
-                    };
-                    DialogUtil.talk(messages, characters, w, h);
-                    MTGame.playerBean_1.setHp(MTGame.playerBean_1.getHp() * 4 / 3);
-                    MTGame.playerBean_1.setAttack(MTGame.playerBean_1.getAttack() * 4 / 3);
-                    MTGame.playerBean_1.setDefend(MTGame.playerBean_1.getDefend() * 4 / 3);
-                    xianNv=2;
-                }
             case 1:     // 第 0 层 仙子 找到十字架后
 //                if (!MTGame.hasCross) {
 //                    MTGame.inConversation = false;
@@ -258,29 +191,8 @@ public class DialoguesBean {
 //                MTGame.shop(3);
 //                break;
             case 12:    //  第 4 层 第一次小偷对话
-                messages = new String[]{
-                        "    你已经得救了! ",
-                        "    啊，那真是太好了，我又可以在这里面寻宝了！\n" +
-                                "    哦，还没有自我介绍，我叫杰克，是这附近有名" +
-                                "的小偷，什么金银财宝我样样都偷过。\n" +
-                                "    不过这次运气可不是太好，刚进来就被抓了。\n" +
-                                "    现在你帮我打开了门，那我就帮你做一件事吧。",
-                        "    快走吧，外面还有很多怪物，我可能顾不上你。",
-                        "    不，不，不会有事的。\n    快说吧，叫我做什么？",
-                        "    ······\n    你会开门吗？",
-                        "    那当然。",
-                        "    那就请你帮我打开第二层的门吧！",
-                        "    那个简单，不过，如果你能帮我找到一把嵌了红" +
-                                "宝石的铁榔头的话，我还帮你打通第十八层的路。",
-                        "    嵌了红宝石的铁榔头？好吧，我帮你找找。",
-                        "    非常地感谢。一会我便会将第二层的门打开。" +
-                                "    如果你找到那个铁榔头的话，还是来这里找我！"
-                };
-//                h[3] = 330;
-//                MTGame.talk(messages, characters, w, h);
-//                LvMap[2][6][1] = 1;
-//                MTGame.baseBeanMap[4][5][0] = new DialoguesBean(13);
-//                break;
+
+                break;
 //            case 13:
 //                if (!MTGame.hasPickaxe) {
 //                    MTGame.inConversation = false;
@@ -382,7 +294,7 @@ public class DialoguesBean {
 //
 //                };
 //                break;
-            case 22:    // 第 2 层 商人对话（得到钢盾，防御+30）
+            case 22:    // 第 2 层 商人对话（得到钢盾，防御+30）// 第 15 层 商人对话（得到圣光盾，防御+120）
                 messages = new String[]{
                         "    您已经得救了！",
                         "    哦，是嘛！真是太感谢你了！" +
@@ -402,6 +314,74 @@ public class DialoguesBean {
                         "  等你打赢我再说吧！"
                 };
                 break;
+            case 24:     // 第 0 层 仙子 第一次对话
+                //已经进行过第一次对话，且没有找到十字架
+                if (xianNv==0) {
+                    messages = new String[]{
+                            "    ······",
+                            "    你醒了!",
+                            "    ······\n    你是谁？我在哪里？",
+                            "    我是这里的仙子，刚才你被这里的小怪打昏了。",
+                            "    ······\n    剑，剑，我的剑呢？",
+                            "    你的剑被他们抢走了，我只来得及将你救出来。",
+                            "    那，公主呢？我是来救公主的。",
+                            "    公主还在里面，你这样进去是打不过里面的小怪的。",
+                            "    那我怎么办，我答应了国王一定要把公主救出来" +
+                                    "的，那我现在应该怎么办呢？",
+                            "    放心吧，我把我的力量借给你，你就可以打赢那些小" +
+                                    "怪了。不过，你的先去帮我去找一样东西，找到了再来这" +
+                                    "里找我。",
+                            "    找东西？找什么东西？",
+                            "    是一个十字架，中间有一颗红色的宝石。",
+                            "    那个东西有什么用吗？",
+                            "    我本是这座塔守护者，可不久前，从北方来了一批恶" +
+                                    "魔，他们占领了这座塔，并将我的魔力封在了这个十字" +
+                                    "架里面，如果你能将它带出塔来，那我的魔力便会慢慢" +
+                                    "地恢复，到那时我便可以把力量借给你去救公主了。\n" +
+                                    "    要记住，只有用我的魔力才可以打开二十一层的门。",
+                            "    ······\n    好吧，我试试看。",
+                            "    刚才我去看过了，你的剑被放在三楼，你的盾在五楼" +
+                                    "上，而那个十字架被放在七楼。要到七楼，你的先取回" +
+                                    "你的剑和盾。\n    另外在塔里的其他楼层" +
+                                    "上，还有一些存放了好几百年的宝剑和宝物，如果得到" +
+                                    "它们，对于你对付这里面的怪物将有很大的帮助。",
+                            "    ······\n    可是，我怎么进去呢?",
+                            "    我这里有三把钥匙，你先拿去，在塔里面还有很多这" +
+                                    "样的钥匙，你一定要珍惜使用。\n" +
+                                    "    勇敢的去吧，勇士！"
+                    };
+                    h[9] = 220;
+                    h[13] = 400;
+                    h[15] = 380;
+                    h[17] = 200;
+                    DialogUtil.talk(messages, characters, w, h);
+                    MapData.LvMap[currentFloor][8][5] = 0;
+                    MapData.LvMap[currentFloor][8][4] = 24;
+//                MTGame.baseBeanMap[0][4][8] = new DialoguesBean(1);
+//                MTGame.baseBeanMap[0][5][8] = null;
+                    MTGame.playerBean_1.setYkey(MTGame.playerBean_1.getYkey() + 1);
+                    MTGame.playerBean_1.setBkey(MTGame.playerBean_1.getBkey() + 1);
+                    MTGame.playerBean_1.setRkey(MTGame.playerBean_1.getRkey() + 1);
+                    xianNv=1;
+                } else if (xianNv==1 && !MTGame.itemsBean.isHasCross) {
+                    MTGame.inConversation = false;
+                    break;
+                } else if (xianNv==1 && MTGame.itemsBean.isHasCross) {
+                    MTGame.inConversation = false;
+                    messages = new String[]{
+                            "    仙子，我已经将那个十字架找到了。",
+                            "    你做得很好。\n    那么现在我就开始授予" +
+                                    "你更强的力量！\n    咪啦哆咪哔······\n" +
+                                    "    好了，我已经将你现在的能力提升了！\n" +
+                                    "    记住：如果你没有足够的实力的话，不要去第二十一" +
+                                    "层！在那一层里，你所有宝物的法力都会失去作用！"
+                    };
+                    DialogUtil.talk(messages, characters, w, h);
+                    MTGame.playerBean_1.setHp(MTGame.playerBean_1.getHp() * 4 / 3);
+                    MTGame.playerBean_1.setAttack(MTGame.playerBean_1.getAttack() * 4 / 3);
+                    MTGame.playerBean_1.setDefend(MTGame.playerBean_1.getDefend() * 4 / 3);
+                    xianNv=2;
+                }
 //            case 99:    // 第 15 层 神秘老人对话（得到圣光剑，攻击+120）
 //                messages = new String[]{
 //                        "你好，勇敢的孩子，你终于来到这里了。" +
@@ -412,8 +392,34 @@ public class DialoguesBean {
 //                        "那好吧，这把剑就给你了！"
 //                };
 //                break;
-            case 25:    // 第 15 层 商人对话（得到圣光盾，防御+120）
-
+            case 25:    //  第 4 层 第一次小偷对话
+                if (thiefNv==0) {
+                    messages = new String[]{
+                            "    你已经得救了! ",
+                            "    啊，那真是太好了，我又可以在这里面寻宝了！\n" +
+                                    "    哦，还没有自我介绍，我叫杰克，是这附近有名" +
+                                    "的小偷，什么金银财宝我样样都偷过。\n" +
+                                    "    不过这次运气可不是太好，刚进来就被抓了。\n" +
+                                    "    现在你帮我打开了门，那我就帮你做一件事吧。",
+                            "    快走吧，外面还有很多怪物，我可能顾不上你。",
+                            "    不，不，不会有事的。\n    快说吧，叫我做什么？",
+                            "    ······\n    你会开门吗？",
+                            "    那当然。",
+                            "    那就请你帮我打开第二层的门吧！",
+                            "    那个简单，不过，如果你能帮我找到一把嵌了红" +
+                                    "宝石的铁榔头的话，我还帮你打通第十八层的路。",
+                            "    嵌了红宝石的铁榔头？好吧，我帮你找找。",
+                            "    非常地感谢。一会我便会将第二层的门打开。" +
+                                    "    如果你找到那个铁榔头的话，还是来这里找我！"
+                    };
+                    h[3] = 330;
+                    DialogUtil.talk(messages, characters, w, h);
+                    MapData.LvMap[2][6][1] = 0;
+                    thiefNv = 1;
+                } else if (thiefNv==1) {
+                    MTGame.inConversation = false;
+                }
+//                MTGame.baseBeanMap[4][5][0] = new DialoguesBean(13);
                 break;
             case 26:    // 第 4 层 第二次小偷对话
                 messages = new String[]{
@@ -422,15 +428,26 @@ public class DialoguesBean {
                                 "    好吧，我这就去帮你修好第十八层的路面。"
                 };
                 break;
-            case 27:    // 第 19 层 冥灵魔王
-                messages = new String[]{
-                        "    大魔王，你的死期到了！",
-                        "    哈哈哈······\n    你也真是有意思，别以" +
-                                "为蝶仙那家伙给了你力量你就可以打败我，想打败" +
-                                "我你还早着呢！",
-                        "    废话少说，去死吧！"
-
-                };
+            case 27:    // 第 2 层 商人对话（得到钢盾，防御+30） 第 15 层 商人对话（得到圣光盾，防御+120）
+                if (merchantNv==0) { // 从未对过话
+                    messages = new String[]{
+                            "    您已经得救了！",
+                            "    哦，是嘛！真是太感谢你了！",
+                            "    我是个商人，不知为什么被抓到这里来了。",
+                            "    快走吧，现在你已经自由了。",
+                            "    哦，对对对，我已经自由了。\n" +
+                                    "    那这个东西就给你吧，本来我是准备卖钱的。\n" +
+                                    "    相信它对你一定很有帮助！"
+                    };
+//                    h[9] = 220;
+//                    h[13] = 400;
+//                    h[15] = 380;
+//                    h[17] = 200;
+                    DialogUtil.talk(messages, characters, w, h);
+                    merchantNv=1;
+                } else if (merchantNv==1) { //救过第二层商人，未与第15层商人对话
+                    ShopUtil.shop(2);
+                }
                 break;
             case 28:    // 第 19 层 击败冥灵魔王后
                 messages = new String[]{

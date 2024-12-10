@@ -77,6 +77,7 @@ public class MTMain implements Serializable {
                             break;
                         case VK_J:      // 键盘 J
                             if (MTGame.itemsBean.isHasJump) {
+                                inConversation = true;
                                 displayJump();
                             }
                             break;
@@ -90,10 +91,9 @@ public class MTMain implements Serializable {
                             SaveUtil.saveGame(MTMain.this);
                             break;
                         case VK_F2:      // 键盘 F2，加载
-                            MTMain loadedGame = SaveUtil.loadGame();
-
                             // 重新启动游戏
-//                            gameFrame.dispose(); // 关闭当前窗口
+                            gameFrame.dispose(); // 关闭当前窗口
+                            MTMain loadedGame = SaveUtil.loadGame();
                             loadedGame.start();
                             break;
                         case VK_Z:      // 键盘 Z，战斗减速

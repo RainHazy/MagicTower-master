@@ -72,13 +72,13 @@ public class JumpUtil {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (selection != 20 && e.getKeyCode() == e.VK_UP && choices[selection + 1] != null) {
+                if (selection != 20 && e.getKeyCode() == e.VK_DOWN && choices[selection + 1] != null) {
                     choices[selection].setText(choices[selection].getText().replaceAll("▶", "▷"));
                     selection = selection + 1;
                     choices[selection].setText(choices[selection].getText().replaceAll("▷", "▶"));
                     gameFrame.repaint();
                 }
-                if (selection != 0 && e.getKeyCode() == e.VK_DOWN) {
+                if (selection != 0 && e.getKeyCode() == e.VK_UP) {
                     choices[selection].setText(choices[selection].getText().replaceAll("▶", "▷"));
                     selection = selection - 1;
                     choices[selection].setText(choices[selection].getText().replaceAll("▷", "▶"));

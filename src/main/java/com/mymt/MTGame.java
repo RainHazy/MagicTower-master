@@ -250,6 +250,9 @@ public class MTGame extends JPanel {
                 new DialoguesBean(id);
                 break;
             case 25:    // [对话] 小偷
+                inConversation = true;
+                new DialoguesBean(id);
+                break;
             case 26:    // [对话] 老人
                 inConversation = true;
                 if (currentFloor == 5) {
