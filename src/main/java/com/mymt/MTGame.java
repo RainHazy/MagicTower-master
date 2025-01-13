@@ -5,6 +5,7 @@ import com.mymt.bean.ItemsBean;
 import com.mymt.bean.PlayerBean;
 import com.mymt.data.ImageData;
 import com.mymt.data.MonsterData;
+import com.mymt.data.RoleTalkNumData;
 import com.mymt.util.*;
 
 import java.awt.event.*;
@@ -60,11 +61,14 @@ public class MTGame extends JPanel {
     public static JLabel speedLabel;
     public static int speed_level = Integer.parseInt(load("speed_level"));
 
+    //对话进度
+    public static RoleTalkNumData roleTalkNumData = new RoleTalkNumData();
+
     // 构造器
     public MTGame() {
         setLayout(null);
 
-        gameFrame = new JFrame("魔塔 v1.2");
+        gameFrame = new JFrame("魔塔 v1.5");
 
         // 初始化 时间面板
         timeLabel = new JLabel();
@@ -259,6 +263,8 @@ public class MTGame extends JPanel {
                     ShopUtil.shop(1);
                 } else if (currentFloor == 13) {
                     ShopUtil.shop(5);
+                } else if (currentFloor == 2) {
+                    new DialoguesBean(id);
                 }
                 break;
             case 27:    // [对话] 商人
@@ -267,6 +273,8 @@ public class MTGame extends JPanel {
                     ShopUtil.shop(2);
                 } else if (currentFloor == 12) {
                     ShopUtil.shop(4);
+                } else if (currentFloor == 2) {
+                    new DialoguesBean(id);
                 }
                 break;
             case 28:    // [对话] 公主

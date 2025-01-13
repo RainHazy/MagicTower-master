@@ -262,6 +262,9 @@ public class ImageData {
             imagesMap1.put(303, ImageIO.read(new File(System.getProperty("user.dir") + "/res/map1/14.png")));
             imagesMap1.put(304, ImageIO.read(new File(System.getProperty("user.dir") + "/res/map1/14.png")));
             imagesMap1.put(305, ImageIO.read(new File(System.getProperty("user.dir") + "/res/map1/5.png")));
+
+            //新增
+            imagesMap0.put(401, ImageIO.read(new File(System.getProperty("user.dir") + "/res/map0/24.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

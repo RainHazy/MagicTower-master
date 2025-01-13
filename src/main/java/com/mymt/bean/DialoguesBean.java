@@ -3,13 +3,12 @@ package com.mymt.bean;
 import com.mymt.MTGame;
 import com.mymt.data.ImageData;
 import com.mymt.data.MapData;
+import com.mymt.data.RoleTalkNumData;
 import com.mymt.util.DialogUtil;
-import com.mymt.util.ShopUtil;
 
 import java.awt.image.BufferedImage;
 
-import static com.mymt.MTGame.currentFloor;
-import static com.mymt.data.RoleTalkNumData.*;
+import static com.mymt.MTGame.*;
 /**
  * DialoguesBean 类
  * <p>
@@ -316,7 +315,7 @@ public class DialoguesBean {
                 break;
             case 24:     // 第 0 层 仙子 第一次对话
                 //已经进行过第一次对话，且没有找到十字架
-                if (xianNv==0) {
+                if (roleTalkNumData.xianNv==0) {
                     messages = new String[]{
                             "    ······",
                             "    你醒了!",
@@ -362,11 +361,11 @@ public class DialoguesBean {
                     MTGame.playerBean_1.setYkey(MTGame.playerBean_1.getYkey() + 1);
                     MTGame.playerBean_1.setBkey(MTGame.playerBean_1.getBkey() + 1);
                     MTGame.playerBean_1.setRkey(MTGame.playerBean_1.getRkey() + 1);
-                    xianNv=1;
-                } else if (xianNv==1 && !MTGame.itemsBean.isHasCross) {
+                    roleTalkNumData.xianNv=1;
+                } else if (roleTalkNumData.xianNv==1 && !MTGame.itemsBean.isHasCross) {
                     MTGame.inConversation = false;
                     break;
-                } else if (xianNv==1 && MTGame.itemsBean.isHasCross) {
+                } else if (roleTalkNumData.xianNv==1 && MTGame.itemsBean.isHasCross) {
                     MTGame.inConversation = false;
                     messages = new String[]{
                             "    仙子，我已经将那个十字架找到了。",
@@ -380,7 +379,7 @@ public class DialoguesBean {
                     MTGame.playerBean_1.setHp(MTGame.playerBean_1.getHp() * 4 / 3);
                     MTGame.playerBean_1.setAttack(MTGame.playerBean_1.getAttack() * 4 / 3);
                     MTGame.playerBean_1.setDefend(MTGame.playerBean_1.getDefend() * 4 / 3);
-                    xianNv=2;
+                    roleTalkNumData.xianNv=2;
                 }
                 break;
 //            case 99:    // 第 15 层 神秘老人对话（得到圣光剑，攻击+120）
@@ -394,7 +393,7 @@ public class DialoguesBean {
 //                };
 //                break;
             case 25:    //  第 4 层 第一次小偷对话
-                if (thiefNv==0) {
+                if (roleTalkNumData.thiefNv==0) {
                     messages = new String[]{
                             "    你已经得救了! ",
                             "    啊，那真是太好了，我又可以在这里面寻宝了！\n" +
@@ -416,21 +415,37 @@ public class DialoguesBean {
                     h[3] = 330;
                     DialogUtil.talk(messages, characters, w, h);
                     MapData.LvMap[2][6][1] = 0;
-                    thiefNv = 1;
-                } else if (thiefNv==1) {
+                    roleTalkNumData.thiefNv = 1;
+                } else if (roleTalkNumData.thiefNv==1) {
                     MTGame.inConversation = false;
                 }
 //                MTGame.baseBeanMap[4][5][0] = new DialoguesBean(13);
                 break;
             case 26:    // 第 4 层 第二次小偷对话
-                messages = new String[]{
-                        "    哈，快看，我找到了什么！",
-                        "    太好了，这个东西果然是在这里。\n" +
-                                "    好吧，我这就去帮你修好第十八层的路面。"
-                };
+//                messages = new String[]{
+//                        "    哈，快看，我找到了什么！",
+//                        "    太好了，这个东西果然是在这里。\n" +
+//                                "    好吧，我这就去帮你修好第十八层的路面。"
+//                };70
+                if (roleTalkNumData.oldNv==0) {
+                    messages = new String[]{
+                            "您已经得救了！",
+                            "哦，我的孩子，真是太感谢你了！" +
+                                    "这个地方又脏又坏，我真的是快呆不下去了。",
+                            "快走吧，我还得救走被关在这里的公主。",
+                            "哦，你是来救公主的，为了表示对你的感谢，这" +
+                                    "个东西就送给你吧，这还是我年青的时候用过的。" +
+                                    "拿着它去解救公主吧！"
+                    };
+                    DialogUtil.talk(messages, characters, w, h);
+                    MTGame.playerBean_1.setAttack(MTGame.playerBean_1.getAttack() + 70);
+                    roleTalkNumData.oldNv=1;
+                } else if (roleTalkNumData.oldNv==1) {
+                    MTGame.inConversation = false;
+                }
                 break;
             case 27:    // 第 2 层 商人对话（得到钢盾，防御+30） 第 15 层 商人对话（得到圣光盾，防御+120）
-                if (merchantNv==0) { // 从未对过话
+                if (roleTalkNumData.merchantNv==0) { // 从未对过话
                     messages = new String[]{
                             "    您已经得救了！",
                             "    哦，是嘛！真是太感谢你了！",
@@ -440,14 +455,11 @@ public class DialoguesBean {
                                     "    那这个东西就给你吧，本来我是准备卖钱的。\n" +
                                     "    相信它对你一定很有帮助！"
                     };
-//                    h[9] = 220;
-//                    h[13] = 400;
-//                    h[15] = 380;
-//                    h[17] = 200;
                     DialogUtil.talk(messages, characters, w, h);
-                    merchantNv=1;
-                } else if (merchantNv==1) { //救过第二层商人，未与第15层商人对话
-                    ShopUtil.shop(2);
+                    MTGame.playerBean_1.setDefend(MTGame.playerBean_1.getDefend() + 30);
+                    roleTalkNumData.merchantNv=1;
+                } else if (roleTalkNumData.merchantNv==1) { //救过第二层商人，未与第15层商人对话
+                    MTGame.inConversation = false;
                 }
                 break;
             case 28:    // 第 19 层 击败冥灵魔王后

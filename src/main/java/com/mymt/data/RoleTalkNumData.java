@@ -8,7 +8,8 @@ import java.io.Serializable;
  * @date ：2024/11/26 17:17
  */
 public class RoleTalkNumData implements Serializable {
-    public static int xianNv = 0;     // 仙女对话阶段
-    public static int merchantNv = 0;   // 商人对话阶段
-    public static int thiefNv = 0;    // 小偷对话阶段
+    public int xianNv = 0;     // 仙女对话阶段
+    public int oldNv = 0;   // 老人对话阶段
+    public int merchantNv = 0;   // 商人对话阶段
+    public int thiefNv = 0;    // 小偷对话阶段
 }

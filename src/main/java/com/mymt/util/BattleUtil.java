@@ -150,6 +150,10 @@ public class BattleUtil {
     private void attack(/*MonsterBean e*/) {
         if (MTGame.playerBean_1.getAttack() > defend) {
             hp = hp - MTGame.playerBean_1.getAttack() + defend;
+
+            if (MTGame.playerBean_1.getDefend() >= attack) {
+                hp = 0;
+            }
         }
         if (hp <= 0) return;
         if (attack > MTGame.playerBean_1.getDefend()) {
